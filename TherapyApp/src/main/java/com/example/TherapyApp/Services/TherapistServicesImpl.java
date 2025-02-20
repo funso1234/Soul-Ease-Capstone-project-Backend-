@@ -73,6 +73,11 @@ public class TherapistServicesImpl implements TherapistServices {
         return null;
     }
 
+    @Override
+    public List<RecommendedTherapistResponse> getRecommendedTherapists(Long userId) {
+        return List.of();
+    }
+
 //    @Override
 //    public List<RecommendedTherapistResponse> getRecommendedTherapists(Long userId) {
 //        return List.of();

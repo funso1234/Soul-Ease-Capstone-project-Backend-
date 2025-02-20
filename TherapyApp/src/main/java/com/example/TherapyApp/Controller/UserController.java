@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @RequestMapping("/api/user")
 @RestController
+@CrossOrigin(origins = "*")
 public class UserController {
     private final UserServices userServices;
 
@@ -27,7 +28,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/login-user")
+    @PostMapping("/login-user")
     public ResponseEntity<?> login(@RequestBody UserLoginRequest request){
         try {
             UserLoginResponse userLoginResponse = userServices.login(request);

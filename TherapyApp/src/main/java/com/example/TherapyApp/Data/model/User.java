@@ -20,9 +20,9 @@ public class User {
     private String lastName;
     private String email;
     private String password;
-    private String preferredSpecialization;
-    @Enumerated(EnumType.STRING)
-    private Role role;
+     private Specialization preferredSpecialization;
+//    @Enumerated(EnumType.STRING)
+//    private Role role;
     @OneToMany
     private List<Appointment> appointments;
     @OneToMany

@@ -15,12 +15,12 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("/api/admin")
 public class AminController {
-//    private final AdminServices adminServices;
-//    private final TherapistServices therapistServices;
-//
-//    @GetMapping("/recommended/therapist{userId}")
-//    public ResponseEntity<List<RecommendedTherapistResponse>> getRecommendedTherapists(@PathVariable Long userId) {
-//        List<RecommendedTherapistResponse> recommendedTherapists = therapistServices.getRecommendedTherapists(userId);
-//        return new ResponseEntity<>(recommendedTherapists, HttpStatus.OK);
-//    }
+    private final AdminServices adminServices;
+    private final TherapistServices therapistServices;
+
+    @GetMapping("/recommended/therapist{userId}")
+    public ResponseEntity<List<RecommendedTherapistResponse>> getRecommendedTherapists(@PathVariable Long userId) {
+        List<RecommendedTherapistResponse> recommendedTherapists = therapistServices.getRecommendedTherapists(userId);
+        return new ResponseEntity<>(recommendedTherapists, HttpStatus.OK);
+    }
 }

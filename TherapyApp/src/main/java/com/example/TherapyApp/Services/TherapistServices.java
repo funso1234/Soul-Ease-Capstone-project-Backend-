@@ -15,5 +15,7 @@ public interface TherapistServices {
     TherapistUpdateResponse updateProfile(TherapistUpdateRequest therapistUpdateRequest);
     TherapistViewAppointmentResponse viewAppointment(TherapistViewAppointmentRequest therapistViewAppointmentRequest);
 
+    List<RecommendedTherapistResponse> getRecommendedTherapists(Long userId);
+
 //    List<RecommendedTherapistResponse> getRecommendedTherapists(Long userId);
 }

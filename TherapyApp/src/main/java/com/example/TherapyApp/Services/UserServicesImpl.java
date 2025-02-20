@@ -4,13 +4,14 @@ import com.example.TherapyApp.Data.model.*;
 import com.example.TherapyApp.Data.repo.AppointmentRepository;
 import com.example.TherapyApp.Data.repo.TherapistRepository;
 import com.example.TherapyApp.Data.repo.UserRepository;
-import com.example.TherapyApp.Exception.TherapistNotAvailableException;
-import com.example.TherapyApp.Exception.TherapistNotFoundException;
-import com.example.TherapyApp.Exception.UserNotFoundException;
+import com.example.TherapyApp.Exception.*;
 import com.example.TherapyApp.dto.Request.*;
 import com.example.TherapyApp.dto.Response.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import static com.example.TherapyApp.Data.model.Role.CUSTOMER;
+import static com.example.TherapyApp.Data.model.Role.THERAPIST;
 
 @AllArgsConstructor
 @Service
@@ -23,11 +24,15 @@ public class UserServicesImpl implements UserServices{
 
     @Override
     public UserRegistrationResponse register(UserRegistrationRequest userRegistrationRequest) {
+
         User user = new User();
         user.setFirstName(userRegistrationRequest.getFirstName());
         user.setLastName(userRegistrationRequest.getLastName());
         user.setEmail(userRegistrationRequest.getEmail());
         user.setPassword(userRegistrationRequest.getPassword());
+
+
+
         User users = userRepository.save(user);
         UserRegistrationResponse userRegistrationResponse = new UserRegistrationResponse();
         userRegistrationResponse.setMessage("Registration Successful");
@@ -36,8 +41,7 @@ public class UserServicesImpl implements UserServices{
 
     @Override
     public UserLoginResponse login(UserLoginRequest userLoginRequest) {
-        User user = userRepository.findByEmail(userLoginRequest.getEmail()).
-                orElseThrow(()-> new UserNotFoundException("User not found"));
+        User user = new User();
         user.setEmail(userLoginRequest.getEmail());
         user.setPassword(userLoginRequest.getPassword());
         UserLoginResponse userLoginResponse = new UserLoginResponse();
@@ -56,6 +60,15 @@ public class UserServicesImpl implements UserServices{
         UserEditResponse userEditResponse = new UserEditResponse();
         userEditResponse.setMessage("Profile updated successfully");
         return userEditResponse;
+
+    }
+
+    private void validateUserEmail(String email) {
+        for (User user : userRepository.findAll()) {
+            if (user.getEmail().equals(email)) {
+                throw new UserAlreadyExistException("User already exists");
+            }
+        }
     }
 
     @Override
